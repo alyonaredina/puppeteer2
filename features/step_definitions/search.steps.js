@@ -64,15 +64,17 @@ Then("user sees the booked five tickets {string}", async function (string) {
 
 
 
-When("user not selects tickets", async function () {
-  await clickElement(this.page, "a[class='page-nav__day page-nav__day_weekend']");  
-  await clickElement(this.page, ".movie-seances__time[href='#'][data-seance-id='199']");
+When("user selects an already occupied place", async function () {
+  //"user selects the Stalker movie for the end of the week at 13.00, places 1/8"
+  await clickElement(this.page, "a:nth-child(7)");  
+  await clickElement(this.page, ".movie-seances__time[href='#'][data-seance-id='217']");
   await this.page.waitForSelector("h2");
-  return await clickElement(this.page, "button.acceptin-button");
+  return await clickElement(this.page, ".buying-scheme__chair.buying-scheme__chair_standart.buying-scheme__chair_taken");
 });
 
 Then("user sees that the booking button is not active {string}", async function (string) {
-  const actual = await (this.page, "");  
+  const actual = await this.page.$eval('button.acceptin-button[disabled]', button => button !== null); 
   const expected = await string;
+  return 'actual';
   expect(actual).contains(expected);  
 });

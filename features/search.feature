@@ -11,8 +11,8 @@ Feature: Booking tickets
         Then user sees the booked five tickets "Ряд/Место: 1/6, 1/7, 1/8, 1/9, 1/10"    
 
     
-    Scenario: Should booking is not possible without a choice of seats 
+    Scenario: Should choosing an occupied place 
         Given user is on "/client/index.php" page
-        When user not selects tickets
-        Then user sees that the booking button is not active ""   
+        When user selects an already occupied place
+        Then user sees that the booking button is not active "true"
         

@@ -44,13 +44,13 @@ describe("booking tickets tests", () => {
     expect(actual).contains(expected);
   });  
 
-  test("Book a ticket without choosing a seat, sad path", async () => {
-    const expected = "";
-    await clickElement(page, "a[class='page-nav__day page-nav__day_weekend']");
-    await clickElement(page, ".movie-seances__time[href='#'][data-seance-id='199']");
+  test.only("Choosing an occupied place, sad path", async () => {
+    const expected = true;
+    await clickElement(page, "a:nth-child(7)");
+    await clickElement(page, ".movie-seances__time[href='#'][data-seance-id='217']");
     await page.waitForSelector("h2");
-    await clickElement(page, "button.acceptin-button");
-    const actual = await ""; 
-    expect(actual).contains(expected);
-  });  
+    await clickElement(page, ".buying-scheme__chair.buying-scheme__chair_standart.buying-scheme__chair_taken");
+    const actual = await page.$eval('button.acceptin-button[disabled]', button => button !== null);   
+    expect(actual).equal(expected);
+  });
 });
