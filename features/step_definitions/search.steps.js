@@ -65,11 +65,19 @@ Then("user sees the booked five tickets {string}", async function (string) {
 
 
 When("user selects an already occupied place", async function () {
-  //"user selects the Stalker movie for the end of the week at 13.00, places 1/8"
-  await clickElement(this.page, "a:nth-child(7)");  
+  //"user selects the Stalker movie for the end of the week at 13.00, places 1/2"
+  await clickElement(this.page, "a:nth-child(7)");
   await clickElement(this.page, ".movie-seances__time[href='#'][data-seance-id='217']");
   await this.page.waitForSelector("h2");
-  return await clickElement(this.page, ".buying-scheme__chair.buying-scheme__chair_standart.buying-scheme__chair_taken");
+  await clickElement(this.page, "div[class='buying-scheme__wrapper'] div:nth-child(1) span:nth-child(2)");
+  await clickElement(this.page, ".acceptin-button");
+  await clickElement(this.page, ".acceptin-button");
+
+  await this.page.goto("https://qamid.tmweb.ru/client/index.php");
+  await clickElement(this.page, "a:nth-child(7)");
+  await clickElement(this.page, ".movie-seances__time[href='#'][data-seance-id='217']");
+  await this.page.waitForSelector("h2");
+  await clickElement(this.page, "div[class='buying-scheme__wrapper'] div:nth-child(1) span:nth-child(2)");  
 });
 
 Then("user sees that the booking button is not active {string}", async function (string) {
